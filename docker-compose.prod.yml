@@ -1,0 +1,123 @@
+# =============================================================================
+# Docker Compose - PRODUCTION Configuration
+# =============================================================================
+# Optimized for performance, security, and reliability
+# Multi-stage build with nginx serving optimized static files
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # Production Web Server
+  # ---------------------------------------------------------------------------
+  groucho:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Build arguments (passed to Dockerfile)
+        NODE_ENV: production
+    
+    # Container name
+    container_name: groucho-the-hunter
+    
+    # Port mapping - nginx serves on port 80, mapped to host 8080
+    ports:
+      - "8080:80"
+    
+    # No volume mounts - immutable container for security
+    # All assets baked into image at build time
+    
+    # Restart policy - always restart unless manually stopped
+    restart: unless-stopped
+    
+    # Environment variables for production
+    environment:
+      - NODE_ENV=production
+      - NGINX_WORKER_PROCESSES=auto
+      - NGINX_WORKER_CONNECTIONS=1024
+    
+    # Resource limits for container stability
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    
+    # Health check - monitor container health
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Logging configuration - prevent log bloat
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Security options
+    security_opt:
+      - no-new-privileges:true  # Prevent privilege escalation
+    
+    # Read-only root filesystem for security
+    read_only: true
+    
+    # Temporary filesystems for required writable areas
+    tmpfs:
+      - /var/cache/nginx:noexec,nosuid,size=100m
+      - /var/run:noexec,nosuid,size=100m
+
+# ---------------------------------------------------------------------------
+# Network Configuration (isolated bridge network)
+# ---------------------------------------------------------------------------
+networks:
+  default:
+    driver: bridge
+
+# =============================================================================
+# USAGE COMMANDS
+# =============================================================================
+#
+# Start production services:
+#   docker-compose -f docker-compose.prod.yml up -d
+#
+# Build and start:
+#   docker-compose -f docker-compose.prod.yml up -d --build
+#
+# View logs:
+#   docker-compose -f docker-compose.prod.yml logs -f
+#
+# Scale horizontally (if needed):
+#   docker-compose -f docker-compose.prod.yml up -d --scale groucho=3
+#
+# Check health status:
+#   docker-compose -f docker-compose.prod.yml ps
+#
+# For development with hot reload, use:
+#   docker-compose up
+#
+# =============================================================================
+# PRODUCTION DEPLOYMENT NOTES
+# =============================================================================
+#
+# 1. Build image for distribution:
+#    docker build -t groucho-the-hunter:latest .
+#
+# 2. Run with docker run:
+#    docker run -d -p 8080:80 --name groucho groucho-the-hunter:latest
+#
+# 3. With Docker Swarm:
+#    docker stack deploy -c docker-compose.prod.yml groucho-stack
+#
+# 4. Environment-specific overrides:
+#    docker-compose -f docker-compose.prod.yml -f docker-compose.override.yml up -d
+#
+# =============================================================================

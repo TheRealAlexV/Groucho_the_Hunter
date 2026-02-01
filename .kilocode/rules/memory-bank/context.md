@@ -15,16 +15,19 @@ The project is currently in the planning and documentation phase. All design doc
 - [`Docs/ImplementationPlan.md`](../../Docs/ImplementationPlan.md) - 12-week development roadmap
 
 ### Completed Infrastructure
-- [`Dockerfile`](../../Dockerfile) - Multi-stage build configuration
-- [`docker-compose.yml`](../../docker-compose.yml) - Container orchestration
+- [`Dockerfile`](../../Dockerfile) - Multi-stage build configuration (Node.js builder + nginx production)
+- [`docker-compose.yml`](../../docker-compose.yml) - Development environment with hot reload (Vite dev server on port 3000)
+- [`docker-compose.prod.yml`](../../docker-compose.prod.yml) - Production deployment with nginx (port 8080), health checks, and security hardening
 - [`nginx.conf`](../../nginx.conf) - Web server configuration for static assets
 - [`.dockerignore`](../../.dockerignore) - Docker build optimization
 
 ## Recent Changes
 
+- **2026-02-01**: Docker Compose configuration split into dev/prod files
+  - `docker-compose.yml` - Development with hot reload, volume mounts, Vite dev server
+  - `docker-compose.prod.yml` - Production with nginx, health checks, resource limits
 - **2026-02-01**: Project documentation phase completed
 - **2026-02-01**: Memory bank initialization started
-- **2026-02-01**: Docker deployment configuration finalized
 
 ## Next Steps
 

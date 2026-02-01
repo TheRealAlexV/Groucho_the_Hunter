@@ -83,14 +83,19 @@ npm run dev
 ### Docker Deployment
 
 ```bash
-# Build and run with docker-compose
+# Development with hot reload (Vite dev server on port 3000)
 docker-compose up --build
 
-# Access application at http://localhost:8080
+# Access development server at http://localhost:3000
 
-# Production deployment
+# Production deployment (nginx on port 8080)
+docker-compose -f docker-compose.prod.yml up -d --build
+
+# Access production build at http://localhost:8080
+
+# Alternative: Direct Docker build and run
 docker build -t groucho-the-hunter .
-docker run -p 8080:80 groucho-the-hunter
+docker run -d -p 8080:80 --name groucho groucho-the-hunter
 ```
 
 ## Technical Constraints
