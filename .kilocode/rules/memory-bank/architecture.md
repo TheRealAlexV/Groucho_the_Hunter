@@ -27,6 +27,16 @@ Groucho the Hunter uses a modular component-based architecture built on Three.js
 │  │ • Menu Manager   │  │ • Asset Cache                      │   │
 │  │ • Puzzle UIs     │  │ • LOD System                       │   │
 │  └──────────────────┘  └────────────────────────────────────┘   │
+├─────────────────────────────────────────────────────────────────┤
+│                     CLI Tool (grouchocli)                        │
+│  ┌─────────────┐  ┌──────────────┐  ┌────────────────────────┐  │
+│  │   Docker    │  │     TUI      │  │    Game Manager        │  │
+│  │   Manager   │  │   Interface  │  │    • Status checks     │  │
+│  │             │  │              │  │    • Log streaming     │  │
+│  │ • Start/Stop│  │ • Menu nav   │  │    • Shell access      │  │
+│  │ • Build     │  │ • Keybinds   │  │                        │  │
+│  │ • Logs      │  │ • Status UI  │  │                        │  │
+│  └─────────────┘  └──────────────┘  └────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
                               │
         ┌─────────────────────┼─────────────────────┐
@@ -104,6 +114,18 @@ src/
 ├── game.js                  # Main game controller
 ├── main.js                  # Entry point
 └── config.js                # Game configuration
+
+grouchocli/                  # CLI management tool
+├── __init__.py              # Package initialization
+├── config.py                # Configuration management
+├── docker_manager.py        # Docker operations wrapper
+├── game_manager.py          # Game state monitoring
+├── main.py                  # CLI entry point (Click)
+├── tui.py                   # Interactive TUI (Textual)
+├── utils.py                 # Utility functions
+├── pyproject.toml           # UV project configuration
+├── setup.sh                 # Bootstrap script
+└── README.md                # CLI documentation
 ```
 
 ## Key Technical Decisions
@@ -237,3 +259,57 @@ Player.scan() → Raycast detects PuzzleObject
 | Frame Rate | 60fps | WebGPU, optimized shaders |
 | Load Time | <5s | Progressive loading, compression |
 | Memory | Stable | Object pooling, proper disposal |
+## CLI Architecture
+
+The `grouchocli` tool provides a Python-based management layer for Docker environments:
+
+### CLI Component Relationships
+
+```
+groucho (CLI Entry Point)
+    ├── DockerManager
+    │   └── Manages: docker-compose operations
+    │       • start_dev(), start_prod()
+    │       • stop(), restart()
+    │       • build(), clean()
+    │
+    ├── GameManager
+    │   └── Manages: Container status, health checks
+    │       • get_status()
+    │       • stream_logs()
+    │       • open_shell()
+    │
+    ├── TUI (Textual)
+    │   └── Provides: Interactive menu interface
+    │       • MainMenu screen
+    │       • Status widgets
+    │       • Key bindings
+    │
+    └── Config
+        └── Manages: Environment configuration
+            • Dev settings (port 3000)
+            • Prod settings (port 8080)
+```
+
+### CLI Design Patterns
+
+| Pattern | Usage | Location |
+|---------|-------|----------|
+| **Command Pattern** | CLI command abstraction | `main.py` (Click decorators) |
+| **Facade Pattern** | Docker complexity hiding | `docker_manager.py` |
+| **Observer Pattern** | TUI reactive updates | `tui.py` (Textual reactive) |
+| **Singleton Config** | Global configuration | `config.py` |
+
+### Environment Detection
+
+The CLI automatically detects project configuration:
+
+```python
+# Development environment
+docker-compose.yml        # Port 3000, Vite dev server
+Container: groucho-the-hunter-dev
+
+# Production environment  
+docker-compose.prod.yml   # Port 8080, nginx
+Container: groucho-the-hunter
+```

@@ -11,12 +11,14 @@ __email__ = "dev@groucho.game"
 from grouchocli.config import Config
 from grouchocli.docker_manager import DockerManager
 from grouchocli.game_manager import GameManager
+from grouchocli.chrome_manager import ChromeManager
 from grouchocli.utils import setup_logging, console
 
 __all__ = [
     "Config",
     "DockerManager",
     "GameManager",
+    "ChromeManager",
     "setup_logging",
     "console",
     "__version__",

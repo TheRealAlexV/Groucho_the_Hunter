@@ -12,6 +12,9 @@
 | **Build Tool** | Vite | 5.x | Development server & bundling |
 | **Container** | Docker | - | Deployment packaging |
 | **Web Server** | nginx | alpine | Static file serving |
+| **CLI Tool** | Python 3.11+ | - | Docker environment management |
+| **CLI Framework** | Click + Textual | - | CLI and TUI interface |
+| **Package Manager** | uv | - | Python dependency management |
 
 ### Rendering Pipeline
 
@@ -83,6 +86,26 @@ npm run dev
 ### Docker Deployment
 
 ```bash
+# Using grouchocli (recommended)
+# Setup
+cd grouchocli && ./setup.sh
+
+# Start development environment (port 3000, hot reload)
+groucho start --dev
+
+# Start production environment (port 8080)
+groucho start --prod
+
+# Check status
+groucho status
+
+# View logs with follow
+groucho logs --dev --follow
+
+# Open interactive menu
+groucho menu
+
+# Manual Docker commands (alternative)
 # Development with hot reload (Vite dev server on port 3000)
 docker-compose up --build
 
@@ -315,4 +338,46 @@ const gui = new GUI();
 const folder = gui.addFolder('Player Settings');
 folder.add(player, 'speed', 0, 20);
 folder.add(player, 'jumpForce', 0, 20);
+```
+
+### CLI Tool Commands
+
+| Command | Purpose | Example |
+|---------|---------|---------|
+| `groucho start --dev` | Start development environment | `groucho start --dev --build` |
+| `groucho start --prod` | Start production environment | `groucho start --prod` |
+| `groucho stop` | Stop containers | `groucho stop --dev` |
+| `groucho restart` | Restart containers | `groucho restart --prod` |
+| `groucho status` | Show container/game status | `groucho status` |
+| `groucho logs` | View logs | `groucho logs --dev --follow` |
+| `groucho shell` | Open interactive shell | `groucho shell --dev` |
+| `groucho build` | Build Docker images | `groucho build --prod --no-cache` |
+| `groucho clean` | Remove all resources | `groucho clean --force` |
+| `groucho menu` | Launch interactive TUI | `groucho menu` |
+
+### CLI Tool Setup
+
+```bash
+# Navigate to CLI directory
+cd grouchocli
+
+# Run automated setup (installs uv, creates venv, installs deps)
+./setup.sh
+
+# Verify installation
+groucho --help
+```
+
+### Python Dependencies (CLI Tool)
+
+```toml
+# grouchocli/pyproject.toml
+[project]
+name = "grouchocli"
+version = "1.0.0"
+dependencies = [
+    "click>=8.0.0",
+    "textual>=0.52.0",
+    "rich>=13.0.0",
+]
 ```

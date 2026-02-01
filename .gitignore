@@ -1,0 +1,220 @@
+# =============================================================================
+# Groucho the Hunter - Comprehensive .gitignore
+# =============================================================================
+# This project includes: Three.js/Vite frontend, Python CLI tool, Docker deployment
+
+
+# =============================================================================
+# Node.js / JavaScript / Frontend
+# =============================================================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm
+.yarn-integrity
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+*.tgz
+
+# Cache directories
+.cache/
+.parcel-cache/
+.vite/
+.eslintcache
+.stylelintcache
+
+# Vite specific
+*.local
+
+# TypeScript
+*.tsbuildinfo
+
+
+# =============================================================================
+# Python / CLI Tool
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+grouchocli/.venv/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+sdist/
+wheels/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pytype/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+
+# =============================================================================
+# Docker
+# =============================================================================
+
+# Docker local overrides
+docker-compose.override.yml
+docker-compose.*.yml
+!.dockerignore
+
+# Docker volumes and build cache
+.docker/
+
+
+# =============================================================================
+# IDE / Editors
+# =============================================================================
+
+# VSCode
+.vscode/
+*.code-workspace
+.history/
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+
+# =============================================================================
+# Environment / Secrets
+# =============================================================================
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# Secrets and certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets/
+credentials/
+
+
+# =============================================================================
+# Logs
+# =============================================================================
+
+logs/
+*.log
+*.log.*
+log/
+
+
+# =============================================================================
+# Testing / Coverage
+# =============================================================================
+
+coverage/
+.nyc_output/
+*.lcov
+
+
+# =============================================================================
+# Operating System Files
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+
+# =============================================================================
+# Project Specific - Groucho the Hunter
+# =============================================================================
+
+# Chrome profile data (user-specific browser data)
+.chrome-profiles/
+chrome-profiles/
+
+# Local development files
+*.local
+local/
+tmp/
+temp/
+*.tmp
+
+# Game specific (to be added as project develops)
+# save-games/
+# screenshots/
+# recordings/
+

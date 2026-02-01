@@ -20,9 +20,15 @@ The project is currently in the planning and documentation phase. All design doc
 - [`docker-compose.prod.yml`](../../docker-compose.prod.yml) - Production deployment with nginx (port 8080), health checks, and security hardening
 - [`nginx.conf`](../../nginx.conf) - Web server configuration for static assets
 - [`.dockerignore`](../../.dockerignore) - Docker build optimization
+- [`grouchocli/`](../../grouchocli/) - Python CLI management tool for Docker environments with interactive TUI
 
 ## Recent Changes
 
+- **2026-02-01**: Added `grouchocli` Python CLI tool
+  - Interactive TUI menu for Docker management (`groucho menu`)
+  - Commands: start, stop, restart, status, logs, shell, build, clean
+  - Supports both dev (port 3000) and prod (port 8080) environments
+  - Automated setup script with `uv` package manager
 - **2026-02-01**: Docker Compose configuration split into dev/prod files
   - `docker-compose.yml` - Development with hot reload, volume mounts, Vite dev server
   - `docker-compose.prod.yml` - Production with nginx, health checks, resource limits
@@ -37,6 +43,7 @@ The project is currently in the planning and documentation phase. All design doc
 3. Configure build pipeline and development server
 4. Set up linting (ESLint) and formatting (Prettier)
 5. Initialize Git repository with `.gitignore`
+6. Set up grouchocli CLI tool (`cd grouchocli && ./setup.sh`)
 
 ### Phase 1: Core Engine (Weeks 1-3)
 - Week 1: Project initialization and tooling setup

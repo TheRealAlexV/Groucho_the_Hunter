@@ -26,6 +26,9 @@ class Config:
         dev_container_name: Name of the development container.
         prod_container_name: Name of the production container.
         log_level: Default logging level.
+        chrome_profiles_path: Path to Chrome profiles directory.
+        chrome_executable_path: Path to Chrome executable (auto-detected if None).
+        chrome_remote_debugging_port: Port for Chrome remote debugging.
     """
     
     # Project paths
@@ -55,6 +58,11 @@ class Config:
     dev_url: str = "http://localhost:3000"
     prod_url: str = "http://localhost:8080"
     
+    # Chrome configuration
+    chrome_profiles_path: Path = Path(__file__).parent.parent / ".chrome-profiles"
+    chrome_executable_path: Optional[str] = None
+    chrome_remote_debugging_port: int = 9222
+    
     @classmethod
     def from_env(cls) -> "Config":
         """Create configuration from environment variables.
@@ -64,6 +72,9 @@ class Config:
         - GROUPCHO_DEV_PORT
         - GROUPCHO_PROD_PORT
         - GROUPCHO_LOG_LEVEL
+        - GROUPCHO_CHROME_PROFILES_PATH
+        - CHROME_PATH
+        - GROUPCHO_CHROME_DEBUG_PORT
         
         Returns:
             Config instance with values from environment or defaults.
@@ -98,6 +109,13 @@ class Config:
             log_level=os.getenv("GROUPCHO_LOG_LEVEL", cls.log_level),
             dev_url=os.getenv("GROUPCHO_DEV_URL", f"http://localhost:{cls.dev_port}"),
             prod_url=os.getenv("GROUPCHO_PROD_URL", f"http://localhost:{cls.prod_port}"),
+            chrome_profiles_path=Path(
+                os.getenv("GROUPCHO_CHROME_PROFILES_PATH", project_root / ".chrome-profiles")
+            ),
+            chrome_executable_path=os.getenv("CHROME_PATH", cls.chrome_executable_path),
+            chrome_remote_debugging_port=int(
+                os.getenv("GROUPCHO_CHROME_DEBUG_PORT", cls.chrome_remote_debugging_port)
+            ),
         )
     
     def validate(self) -> tuple[bool, list[str]]:
