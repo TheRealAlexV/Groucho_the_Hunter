@@ -1018,6 +1018,61 @@ services:
 - [ ] Service worker for offline play (optional)
 - [ ] Analytics integration (optional)
 
+### 9.6 Git Management with MCP
+
+**Overview:**
+The project includes a git MCP server for repository management. Use these tools for version control throughout development.
+
+**Available Git Operations:**
+- `mcp_git_status` - Check working tree status
+- `mcp_git_diff_staged` - View staged changes
+- `mcp_git_diff_unstaged` - View unstaged changes
+- `mcp_git_add` - Stage files for commit
+- `mcp_git_commit` - Commit changes
+- `mcp_git_log` - View commit history
+- `mcp_git_create_branch` - Create new branches
+- `mcp_git_checkout` - Switch branches
+- `mcp_git_branch` - List branches
+
+**Development Workflow:**
+```bash
+# Check current status
+mcp_git_status
+
+# Review changes before committing
+mcp_git_diff_unstaged
+
+# Stage and commit changes
+mcp_git_add files=["src/core/Game.js", "src/player/Player.js"]
+mcp_git_commit message="feat: implement player movement and collision"
+
+# View recent commits
+mcp_git_log max_count=5
+```
+
+**Branching Strategy:**
+- `main` - Production-ready code
+- `develop` - Integration branch for features
+- `feature/*` - Individual feature branches
+- `hotfix/*` - Critical bug fixes
+
+**Commit Message Convention:**
+- `feat:` New feature
+- `fix:` Bug fix
+- `docs:` Documentation changes
+- `style:` Code style (formatting, missing semi-colons)
+- `refactor:` Code refactoring
+- `perf:` Performance improvements
+- `test:` Adding tests
+- `chore:` Build process/auxiliary tool changes
+
+**Best Practices:**
+- Commit frequently with descriptive messages
+- Use feature branches for major changes
+- Review diffs before committing
+- Keep commits focused on single concerns
+- Push to remote repository regularly
+
 ---
 
 ## 10. QUICK REFERENCE
@@ -1158,96 +1213,3 @@ groucho-the-hunter/
 - Document all code thoroughly for future maintenance
 
 *Happy Hunting!* 🤠🎯🔒
-</parameter name="old_string">
-<parameter name="new_string">
-### External Resources
-- **Three.js Documentation**: https://threejs.org/docs/
-- **WebGPU Guide**: https://threejs.org/manual/#en/webgpu
-- **MITRE ATT&CK**: https://attack.mitre.org/
-- **Draco Compression**: https://google.github.io/draco/
-- **KTX2 Format**: https://github.com/KhronosGroup/KTX-Software
-
----
-
-## APPENDIX: THREAT HUNTING CONCEPTS REFERENCE
-
-### MITRE ATT&CK Tactics (14 Phases)
-1. **Reconnaissance**: Information gathering about target
-2. **Resource Development**: Acquiring infrastructure and tools
-3. **Initial Access**: First entry into target network
-4. **Execution**: Running malicious code
-5. **Persistence**: Maintaining access over time
-6. **Privilege Escalation**: Gaining higher-level permissions
-7. **Defense Evasion**: Avoiding detection
-8. **Credential Access**: Stealing account credentials
-9. **Discovery**: Exploring network and systems
-10. **Lateral Movement**: Moving between systems
-11. **Collection**: Gathering data of interest
-12. **Command and Control**: Communicating with attacker
-13. **Exfiltration**: Stealing data from network
-14. **Impact**: Disrupting availability or compromising integrity
-
-### Cyber Kill Chain (7 Stages)
-1. **Reconnaissance**: Research and target identification
-2. **Weaponization**: Creating exploit/malware payload
-3. **Delivery**: Transmitting payload to target
-4. **Exploitation**: Triggering vulnerability
-5. **Installation**: Establishing persistence
-6. **Command & Control**: Remote control channel
-7. **Actions on Objectives**: Achieving attack goals
-
-### Common Attack Types
-| Attack Type | Description | Visual Metaphor |
-|-------------|-------------|-----------------|
-| **Phishing** | Deceptive emails/credential theft | Fake treasure chests, decoy doors |
-| **Malware** | Viruses, trojans, ransomware | Corrupted, glitching creatures |
-| **DDoS** | Distributed denial of service | Traffic flood overwhelming pathways |
-| **SQL Injection** | Database manipulation | Rewriting signs and labels |
-| **Man-in-the-Middle** | Intercepting communications | Shadowy figures between nodes |
-| **Privilege Escalation** | Gaining admin access | Unlocking restricted areas |
-| **Lateral Movement** | Spreading through network | Teleporting between zones |
-| **Data Exfiltration** | Stealing sensitive data | Data packets leaving through holes |
-
-### Security Tools Visualized
-| Tool | Real Function | In-Game Representation |
-|------|---------------|------------------------|
-| **SIEM** | Log aggregation/analysis | Central command center console |
-| **EDR** | Endpoint detection/response | Scanner device, threat radar |
-| **Wireshark** | Packet analyzer | X-ray vision for data flows |
-| **YARA** | Malware signature matching | Pattern matching mini-game |
-| **Volatility** | Memory forensics | Memory crystal examination |
-| **Splunk/ELK** | Log analysis platform | Interactive log terminals |
-| **VirusTotal** | Multi-engine scanning | Analysis laboratory station |
-| **Nmap** | Network scanning | Area mapping, revealing hidden paths |
-
----
-
-**END OF BLUEPRINT**
-
-*This document serves as the complete specification for AI systems developing "Groucho the Hunter". All sections should be implemented according to the technical specifications and design guidelines provided.*
-
----
-
-**Document Version**: 1.0
-**Last Updated**: 2026-02-01
-**Project**: Groucho the Hunter
-**Purpose**: AI Development Blueprint
-**Status**: Complete
-
-**Key Success Factors:**
-1. Maintain 60fps performance target
-2. Ensure puzzles are educational yet engaging
-3. Balance visual complexity with browser compatibility
-4. Progressive difficulty that teaches real concepts
-5. Docker deployment for easy hosting
-
-**For AI Developers:**
-- Follow the implementation phases sequentially
-- Reference the research document at `Docs/research.md` for additional technical details
-- Use the Groucho character image at `images/Groucho.png` for character modeling reference
-- Test on multiple browsers and hardware configurations
-- Document all code thoroughly for future maintenance
-
-*Happy Hunting!* 🤠🎯🔒
-</parameter name="new_string">
-</invoke>

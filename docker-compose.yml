@@ -1,0 +1,137 @@
+# =============================================================================
+# Docker Compose Configuration for Groucho the Hunter
+# =============================================================================
+# Provides easy orchestration for development and production deployment
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # Main Game Service
+  # ---------------------------------------------------------------------------
+  groucho:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Build arguments (passed to Dockerfile)
+        NODE_ENV: production
+    
+    # Container name
+    container_name: groucho-the-hunter
+    
+    # Port mapping
+    # Host port 8080 mapped to container port 80
+    ports:
+      - "8080:80"
+    
+    # Restart policy
+    # - unless-stopped: Restart unless manually stopped
+    restart: unless-stopped
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - NGINX_WORKER_PROCESSES=auto
+      - NGINX_WORKER_CONNECTIONS=1024
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    
+    # Read-only root filesystem for security
+    read_only: true
+    
+    # Temporary filesystems for writable areas
+    tmpfs:
+      - /var/cache/nginx:noexec,nosuid,size=100m
+      - /var/run:noexec,nosuid,size=100m
+
+  # ---------------------------------------------------------------------------
+  # OPTIONAL: Development Service with Hot Reload
+  # ---------------------------------------------------------------------------
+  # Uncomment this section for development with live reload
+  # 
+  # groucho-dev:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   container_name: groucho-the-hunter-dev
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     # Mount source code for hot reload
+  #     - ./src:/app/src:ro
+  #     - ./public:/app/public:ro
+  #     - ./index.html:/app/index.html:ro
+  #     # Node modules volume (persisted)
+  #     - node_modules:/app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run dev -- --host
+
+# ---------------------------------------------------------------------------
+# Named Volumes
+# ---------------------------------------------------------------------------
+volumes:
+  node_modules:
+    driver: local
+
+# ---------------------------------------------------------------------------
+# Network Configuration (optional - uses default bridge if not specified)
+# ---------------------------------------------------------------------------
+networks:
+  default:
+    driver: bridge
+
+# =============================================================================
+# USAGE COMMANDS
+# =============================================================================
+#
+# Start services (production):
+#   docker-compose up -d
+#
+# Build and start:
+#   docker-compose up --build -d
+#
+# View logs:
+#   docker-compose logs -f groucho
+#
+# Stop services:
+#   docker-compose down
+#
+# Stop and remove volumes:
+#   docker-compose down -v
+#
+# Scale (if supported):
+#   docker-compose up -d --scale groucho=3
+#
+# Access game:
+#   http://localhost:8080
+# =============================================================================

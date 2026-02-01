@@ -1,0 +1,148 @@
+# =============================================================================
+# .dockerignore for Groucho the Hunter
+# =============================================================================
+# Prevents unnecessary files from being included in Docker build context
+# Reduces build time and image size
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Dependencies
+# -----------------------------------------------------------------------------
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# -----------------------------------------------------------------------------
+# Build Output (will be generated during build)
+# -----------------------------------------------------------------------------
+dist
+dist-ssr
+build
+.out
+
+# -----------------------------------------------------------------------------
+# Version Control
+# -----------------------------------------------------------------------------
+.git
+.gitignore
+.gitattributes
+.gitmodules
+.svn
+.hg
+
+# -----------------------------------------------------------------------------
+# IDE and Editor Files
+# -----------------------------------------------------------------------------
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings
+
+# -----------------------------------------------------------------------------
+# Testing
+# -----------------------------------------------------------------------------
+coverage
+.nyc_output
+test
+tests
+__tests__
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+jest.config.js
+vitest.config.js
+
+# -----------------------------------------------------------------------------
+# Documentation (keep essential docs, exclude development docs)
+# -----------------------------------------------------------------------------
+*.md
+!README.md
+Docs/Development
+
+# -----------------------------------------------------------------------------
+# CI/CD and Configuration Files
+# -----------------------------------------------------------------------------
+.github
+.gitlab-ci.yml
+.travis.yml
+.circleci
+.azure-pipelines.yml
+Jenkinsfile
+codecov.yml
+
+# -----------------------------------------------------------------------------
+# Development Tools and Local Config
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.eslintcache
+.prettiercache
+.stylelintcache
+.parcel-cache
+.cache
+temp
+tmp
+*.tmp
+*.temp
+
+# -----------------------------------------------------------------------------
+# Logs
+# -----------------------------------------------------------------------------
+logs
+*.log
+
+# -----------------------------------------------------------------------------
+# Docker Files (not needed in context)
+# -----------------------------------------------------------------------------
+Dockerfile*
+docker-compose*.yml
+.docker
+
+# -----------------------------------------------------------------------------
+# Large Binary Assets (should be fetched from CDN in production)
+# -----------------------------------------------------------------------------
+# Uncomment if assets are hosted externally
+# assets/videos/*.mp4
+# assets/audio/music/*.wav
+# assets/models/raw/*.fbx
+# assets/textures/raw/*.psd
+
+# -----------------------------------------------------------------------------
+# Operating System Files
+# -----------------------------------------------------------------------------
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.Trashes
+
+# -----------------------------------------------------------------------------
+# Backup Files
+# -----------------------------------------------------------------------------
+*.bak
+*.backup
+*.orig
+*.rej
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+*.map  # Source maps not needed in production
+.editorconfig
+.husky
+.lintstagedrc
+.commitlintrc
