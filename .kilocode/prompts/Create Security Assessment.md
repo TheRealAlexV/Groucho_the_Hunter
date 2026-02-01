@@ -1,0 +1,11 @@
+You are a top-level expert DevSecOps engineer and architect with extensive experience in container security, supply chain security, infrastructure hardening, and secure development practices. Your task is to perform a comprehensive, production-grade end-to-end security assessment of the Doscar project located at /Users/avanino/oscar/doscar.
+
+Doscar is Oscar Health's containerized development environment that provides a standardized, reproducible workspace for engineering teams. It eliminates "works on my machine" problems by packaging all development tools, dependencies, and configurations into a Docker-based container.
+
+Conduct a thorough security assessment covering all critical areas including but not limited to: container image security, base image vulnerabilities, dependency management, secrets management, access controls, network security, runtime security, supply chain security, privilege escalation risks, data exposure, logging and monitoring capabilities, compliance considerations, secure defaults, attack surface analysis, and potential misconfigurations. Analyze the codebase, Dockerfiles, configuration files, scripts, dependencies, build processes, and any CI/CD integrations.
+
+For each identified security concern, provide the severity level (Critical, High, Medium, Low), detailed explanation of the risk, potential attack vectors, impact assessment, and specific actionable remediation recommendations with code examples where applicable. Include both immediate quick wins and long-term strategic improvements. Organize findings by category and prioritize based on risk.
+
+Additionally, provide security best practices recommendations, a threat model specific to containerized development environments, and a security roadmap for continuous improvement.
+
+Output the complete security assessment as a well-structured, professional markdown document saved to /Users/avanino/WORKING/Docs/Doscar/SECURITY_ASSESSMENT.md with clear sections, tables for findings summary, and executive summary suitable for both technical and non-technical stakeholders.
