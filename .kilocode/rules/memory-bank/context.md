@@ -69,6 +69,57 @@ The project is currently in the planning and documentation phase. All design doc
 
 None currently identified. Project is ready to begin Phase 1 implementation.
 
+## Docker-Only Execution Policy
+
+⚠️ **HARD RULE**: Always use Docker via grouchocli. Never run `npm run dev` directly.
+
+### Mandatory Execution Policy
+
+| Rule | Enforcement |
+|------|-------------|
+| **ONLY Approved Method** | `groucho start --dev` is the ONLY way to run the application |
+| **Strictly Prohibited** | Running `npm run dev`, `npm start`, or `node` directly on host |
+| **Container-Only Testing** | All testing, development, and debugging must happen inside containers |
+| **Reference Only** | `npm` commands are for documentation only - they run INSIDE the container |
+
+### Why Docker-Only?
+
+1. **Consistency**: Identical Node.js, dependencies, and configurations across all machines
+2. **Isolation**: No conflicts with host system packages or Node versions
+3. **Reproducibility**: Same environment in development, testing, and production
+4. **Safety**: Container boundaries prevent accidental system modifications
+
+### Quick Start (Only Valid Method)
+
+```bash
+# One-time setup
+cd grouchocli && ./setup.sh
+
+# Run the application (ONLY approved way)
+groucho start --dev        # Development (port 3000)
+groucho start --prod       # Production (port 8080)
+
+# Other useful commands
+groucho status             # Check container status
+groucho logs --dev --follow # View logs
+groucho menu               # Interactive TUI
+groucho stop --dev         # Stop container
+```
+
+### Violation Recovery
+
+If you accidentally ran `npm run dev` directly:
+```bash
+# 1. Stop any local Node processes
+killall node
+
+# 2. Use the proper Docker command
+groucho start --dev
+```
+
+See [`.kilocode/rules/docker-workflow.md`](../../docker-workflow.md) for complete Docker workflow documentation.
+See [`.kilocode/rules/execution-policy.md`](../../execution-policy.md) for detailed execution policy.
+
 ## Key Metrics to Track
 
 - Draw calls per frame (target: <100)
